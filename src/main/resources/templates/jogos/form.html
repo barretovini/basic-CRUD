@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout.html}">
+<meta charset="UTF-8">
+<div layout:fragment="content">
+	<div class="alert alert-primary" th:if="${mensagem != null}"
+		th:text="${mensagem}"></div>
+	<div class="card">
+		<div class="card-header">
+			<p class="text-primary">Novo jogo</p>
+		</div>
+		<div class="card-body">
+			<form method="POST" th:object="${jogos}" th:action="@{/jogos/novo}">
+				<input type="hidden" th:field="*{id}">
+				<div class="form-group mb-3">
+					<label for="nome">Nome:</label> <input class="form-control"
+						type="text" th:field="*{nome}" required></input>
+					<div class="text-danger" th:if="${#fields.hasErrors('nome')}"
+						th:errors="*{nome}"></div>
+				</div>
+				<div class="form-group mb-3">
+					<label for="nome">Gênero:</label> <input class="form-control"
+						type="text" th:field="*{genero}" required></input>
+					<div class="text-danger" th:if="${#fields.hasErrors('genero')}"
+						th:errors="*{genero}"></div>
+				</div>
+				<div class="form-group mb-3">
+					<label for="nome">Preço:</label> <input class="form-control"
+						step="0.01" min="0.01" type="number" th:field="*{preco}" required></input>
+					<div class="text-danger" th:if="${#fields.hasErrors('preco')}"
+						th:errors="*{preco}"></div>
+				</div>
+				<div class="form-group mb-3">
+					<label for="nome">Classificação Indicativa: </label>
+					<select name="classificacao" id="classificacao"  style= "width: 100%" class="form-control">
+  						<option value="" selected disabled hidden = true>----Selecione Aqui----</option>
+  						<option value="0">Livre para todos os públicos</option>
+  						<option value="10">Não recomendado para menores de 10 anos</option>
+  						<option value="12">Não recomendado para menores de 12 anos</option>
+  						<option value="14">Não recomendado para menores de 14 anos</option>
+  						<option value="16">Não recomendado para menores de 16 anos</option>
+  						<option value="18">Não recomendado para menores de 18 anos</option>
+						</select>
+						<div class="text-danger" th:if="${#fields.hasErrors('classificacao')}"
+						th:errors="*{classificacao}"></div>
+				</div>
+				<div class="form-group mb-3">
+					<label for="nome">Plataforma: </label>
+					<select name="plataforma" id="plataforma"  style= "width: 100%" class="form-control">
+  						<option value="" selected disabled hidden = true>----Selecione Aqui----</option>
+  						<option value="PS4">PS4</option>
+  						<option value="PS5">PS5</option>
+  						<option value="Xone">Xbox One</option>
+  						<option value="Xseries">Xbox Series</option>
+  						<option value="Switch">Switch</option>
+  						<option value="PC">PC</option>
+  						<option value="PC">Rêtro</option>
+						</select>
+						<div class="text-danger" th:if="${#fields.hasErrors('plataforma')}"
+						th:errors="*{plataforma}"></div>
+				</div>
+				
+				<div class="form-group mb-3">
+					<label for="nome">Lançamento:</label> <input class="form-control"
+						type="date" th:field="*{lancamento}" required></input>
+					<div class="text-danger" th:if="${#fields.hasErrors('lancamento')}"
+						th:errors="*{lancamento}"></div>
+				</div>
+				<button type="submit" class="btn btn-success">Salvar Jogo</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+</html>

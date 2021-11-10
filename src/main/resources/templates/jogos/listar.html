@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout.html}">
+<meta charset="UTF-8">
+<div layout:fragment="content">
+	<div class="alert alert-primary" th:if="${#lists.isEmpty(lista)}">
+		Nenhum jogo cadastrado D:
+	</div>
+	<div class="alert alert-primary" th:if="${mensagem != null}" th:text="${mensagem}"></div>
+	<div th:if="${not #lists.isEmpty(lista)}">
+		<table style= color:#ffffff class="table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Nome</th>
+					<th>Gênero</th>
+					<th>Preco</th>
+					<th>Classificação</th>
+					<th>Plataforma</th>
+					<th>Lançamento</th>
+					<th>Opções</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="jogos : ${lista}">
+					<td th:text="${jogos.id}"></td>
+					<td th:text="${jogos.nome}"></td>
+					<td th:text="${jogos.genero}"></td>
+					<td th:text="'R$' + ${#numbers.formatDecimal(jogos.preco, 0, 'POINT', 2, 'COMMA')}"></td>
+					<td th:text="${jogos.classificacao}"></td>
+					<td th:text="${jogos.plataforma}"></td>	
+					<td th:text="${#dates.format(jogos.lancamento, 'dd/MM/yyyy')}"></td>	
+					<td><a class="btn btn-primary btn-sm" th:href="@{/jogos/editar(id=${jogos.id})}">Editar</a>
+					<a class="btn btn-danger" th:href="@{/jogos/excluir(id=${jogos.id})}" onclick="return confirm('Você realmente deseja excluir esse jogo?')">Excluir</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+</html>
